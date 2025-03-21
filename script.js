@@ -6,14 +6,16 @@ for (let i = 0; i < 256; i++) {
   // create a div
   const div = document.createElement("div");
   // styling the div
-  div.setAttribute(
-    "style",
-    "border: 1px solid black; width: 58px; height: 58px"
-  );
+  div.setAttribute("style", "width: 60px; height: 60px");
   gridContainer.appendChild(div);
 
   div.addEventListener("mouseover", () => changeColor(div));
   div.addEventListener("click", () => changeColor(div));
+  // right click prevent pop up context menu and set opacity to 0 on the div
+  div.addEventListener("contextmenu", (event) => {
+    event.preventDefault();
+    div.style.opacity = 0;
+  });
 }
 
 function changeColor(element) {
