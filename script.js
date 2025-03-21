@@ -4,12 +4,23 @@ const gridContainer = document.querySelector("#grid-container");
 // create erase button
 const eraseButton = document.createElement("button");
 eraseButton.textContent = "Erase Grid";
-eraseButton.addEventListener("click", () => eraseGrid());
+eraseButton.addEventListener("click", () => confirm());
 
 // append the erase button to info div
 const infoDiv = document.querySelector("#info");
 infoDiv.appendChild(eraseButton);
 
+// create span for confirm buttons
+const confirmSpan = document.createElement("span");
+confirmSpan.textContent = "Are you shure?";
+
+// create confirm buttons
+const confirmButtonYes = document.createElement("button");
+const confirmButtonNo = document.createElement("button");
+confirmButtonYes.textContent = "Yes";
+confirmButtonNo.textContent = "No";
+confirmButtonYes.addEventListener("click", () => eraseGrid());
+confirmButtonNo.addEventListener("click", () => removeConfirm());
 
 // greate the grid (16x16 grid, 256 blocks) and append to container
 for (let i = 0; i < 256; i++) {
@@ -36,9 +47,24 @@ function changeColor(element) {
   element.style.backgroundColor = `rgba(90, 90, 90, ${newOpacity})`;
 };
 
+function confirm() {
+  eraseButton.remove();
+  infoDiv.appendChild(confirmSpan);
+  infoDiv.appendChild(confirmButtonYes);
+  infoDiv.appendChild(confirmButtonNo);
+};
+
+function removeConfirm() {
+  confirmSpan.remove();
+  confirmButtonYes.remove();
+  confirmButtonNo.remove();
+  infoDiv.appendChild(eraseButton);
+}
+
 function eraseGrid() {
   const grid = gridContainer.querySelectorAll("div");
   grid.forEach(block => {
     block.style.opacity = 0;
   });
+  removeConfirm();
 };
