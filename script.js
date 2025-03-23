@@ -37,22 +37,26 @@ for (let i = 0; i < 256; i++) {
     event.preventDefault();
     div.style.opacity = 0;
   });
-};
+}
 
 function changeColor(element) {
+  let rndRed = Math.floor(Math.random() * 256);
+  let rndGreen = Math.floor(Math.random() * 256);
+  let rndBlue = Math.floor(Math.random() * 256);
+
   let actualOpacity = parseFloat(element.style.opacity) || 0.1;
   let newOpacity = actualOpacity < 1 ? actualOpacity + 0.1 : actualOpacity;
 
   element.style.opacity = newOpacity;
-  element.style.backgroundColor = `rgba(90, 90, 90, ${newOpacity})`;
-};
+  element.style.backgroundColor = `rgba(${rndRed}, ${rndGreen}, ${rndBlue}, ${newOpacity})`;
+}
 
 function confirm() {
   eraseButton.remove();
   infoDiv.appendChild(confirmSpan);
   infoDiv.appendChild(confirmButtonYes);
   infoDiv.appendChild(confirmButtonNo);
-};
+}
 
 function removeConfirm() {
   confirmSpan.remove();
@@ -63,8 +67,8 @@ function removeConfirm() {
 
 function eraseGrid() {
   const grid = gridContainer.querySelectorAll("div");
-  grid.forEach(block => {
+  grid.forEach((block) => {
     block.style.opacity = 0;
   });
   removeConfirm();
-};
+}
